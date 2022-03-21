@@ -14,7 +14,7 @@ export default function Card(props) {
         <FormDialog
             open={open}
             setOpen={setOpen}
-            id={props.id}
+            user_id={props.user_id}
             name={props.name}
             description={props.description}
             apelido={props.apelido}

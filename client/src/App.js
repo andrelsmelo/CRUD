@@ -112,10 +112,10 @@ function App() {
         listUsers.map((value) => {
           return (
           <Card
-            key={value.id}
+            key={value.user_id}
             listCard={listUsers}
             setListCard={setListUsers}
-            id={value.user_id}
+            user_id={value.user_id}
             name={value.name}
             cpf={value.cpf}
             endereco={value.endereco}

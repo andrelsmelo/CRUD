@@ -10,7 +10,7 @@ import produce from "immer";
 
 export default function FormDialog(props) {
   const [editValues, setEditValues] = useState({
-    id: props.user_id,
+    user_id: props.user_id,
     name: props.name,
     description: props.description,
     apelido: props.apelido,
@@ -33,7 +33,7 @@ export default function FormDialog(props) {
 
   const handleEditUser = () => {
     Axios.put("http://localhost:3001/edit", {
-      id: editValues.user_id,
+      user_id: editValues.user_id,
       name: editValues.name,
       description: editValues.description,
       apelido: editValues.apelido,
@@ -44,9 +44,9 @@ export default function FormDialog(props) {
     }).then(() => {
       props.setListCard(
         props.listCard.map((value) => {
-          return value.id == editValues.user_id
+          return value.user_id == editValues.user_id
             ? {
-                id: editValues.user_id,
+                user_id: editValues.user_id,
                 name: editValues.name,
                 description: editValues.description,
                 apelido: editValues.apelido,
@@ -66,7 +66,7 @@ export default function FormDialog(props) {
     Axios.delete(`http://localhost:3001/delete/${editValues.user_id}`).then(() => {
       props.setListCard(
         props.listCard.filter((value) => {
-          return value.id != editValues.id;
+          return value.id != editValues.user_id;
         })
       );
     });
@@ -87,7 +87,7 @@ export default function FormDialog(props) {
             margin="dense"
             id="user_id"
             label="id"
-            defaultValue={props.id}
+            defaultValue={props.user_id}
             type="number"
             fullWidth
           />

@@ -58,9 +58,11 @@ app.put("/edit", (req, res) => {
     const { genero } = req.body;
     const { telefone } = req.body;
 
-    let SQL = "UPDATE user SET name = ?, description = ? , apelido = ? , cpf = ? , endereco = ? , genero = ? , telefone = ? WHERE user_id = ?";
+    let SQL = "UPDATE user SET name = ?, description = ? , apelido = ? , cpf = ? , endereco = ? , genero = ? , telefone = ?, updatedAt = ? WHERE user_id = ?";
 
-    db.query(SQL, [user_id, name, description, apelido, cpf, endereco, genero, telefone], (err, result) => {
+    console.log(user_id);
+
+    db.query(SQL, [name, description, apelido, cpf, endereco, genero, telefone,new Date(), user_id], (err, result) => {
         if(err) console.log(err)
         else res.send(result);
     })
