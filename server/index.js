@@ -21,10 +21,11 @@ app.post("/register", (req, res)=> {
     const { endereco } = req.body;
     const { genero } = req.body;
     const { telefone } = req.body;
+    const { avatar } = req.body;
 
-    let SQL = "INSERT INTO user ( name, description, apelido, cpf, endereco, genero, telefone ) VALUES ( ?,?,?,?,?,?,? )";
+    let SQL = "INSERT INTO user ( name, description, apelido, cpf, endereco, genero, telefone, avatar ) VALUES ( ?,?,?,?,?,?,? )";
 
-    db.query(SQL, [ name, description, apelido, cpf, endereco, genero, telefone], (err, result) => {
+    db.query(SQL, [ name, description, apelido, cpf, endereco, genero, telefone, avatar], (err, result) => {
        if(err) console.log(err);
        else res.send(result);
    });
@@ -57,12 +58,11 @@ app.put("/edit", (req, res) => {
     const { endereco } = req.body;
     const { genero } = req.body;
     const { telefone } = req.body;
+    const { avatar } = req.body;
 
-    let SQL = "UPDATE user SET name = ?, description = ? , apelido = ? , cpf = ? , endereco = ? , genero = ? , telefone = ?, updatedAt = ? WHERE user_id = ?";
+    let SQL = "UPDATE user SET name = ?, description = ? , apelido = ? , cpf = ? , endereco = ? , genero = ? , telefone = ?, updatedAt = ?, avatar = ? WHERE user_id = ?";
 
-    console.log(user_id);
-
-    db.query(SQL, [name, description, apelido, cpf, endereco, genero, telefone,new Date(), user_id], (err, result) => {
+    db.query(SQL, [name, description, apelido, cpf, endereco, genero, telefone,new Date(), avatar, user_id], (err, result) => {
         if(err) console.log(err)
         else res.send(result);
     })

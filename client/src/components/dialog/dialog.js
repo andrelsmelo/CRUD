@@ -7,6 +7,8 @@ import DialogContent from "@material-ui/core/DialogContent";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import Axios from "axios";
 import produce from "immer";
+// import { Avatar } from "@material-ui/core";
+import Avatar from 'react-avatar';
 
 export default function FormDialog(props) {
   const [editValues, setEditValues] = useState({
@@ -18,6 +20,7 @@ export default function FormDialog(props) {
     endereco: props.endereco,
     genero: props.genero,
     telefone: props.telefone,
+    avatar: props.avatar,
   });
 
   const handleChangeValues = (value) => {
@@ -41,6 +44,7 @@ export default function FormDialog(props) {
       endereco: editValues.endereco,
       genero: editValues.genero,
       telefone: editValues.telefone,
+      avatar: editValues.avatar,
     }).then(() => {
       props.setListCard(
         props.listCard.map((value) => {
@@ -54,6 +58,7 @@ export default function FormDialog(props) {
                 endereco: editValues.endereco,
                 genero: editValues.genero,
                 telefone: editValues.telefone,
+                avatar: editValues.avatar,
               }
             : value;
         })
@@ -82,7 +87,8 @@ export default function FormDialog(props) {
       >
         <DialogTitle id="form-dialog-title">Editar</DialogTitle>
         <DialogContent>
-          <TextField
+        <Avatar name={props.name} maxInitials='2' />
+          <TextField 
             disabled
             margin="dense"
             id="user_id"

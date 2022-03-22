@@ -25,6 +25,7 @@ function App() {
       endereco: values.endereco,
       genero: values.genero,
       telefone: values.telefone,
+      avatar: values.avatar,
     }).then(()=> {
       setListUsers([
         ...listUsers,
@@ -36,6 +37,7 @@ function App() {
           endereco: values.endereco,
           genero: values.genero,
           telefone: values.telefone,
+          avatar: values.avatar,
         }
       ]);
     });
@@ -100,6 +102,13 @@ function App() {
           className="register--input"
           onChange={handleChangeValues}
         />
+        <input
+          type="file"
+          name="avatar"
+          placeholder="Avatar"
+          className="register--input"
+          onChange={handleChangeValues}
+        />
         <button
           className="register--button"
           onClick={() => handleClickButton()}
@@ -123,6 +132,7 @@ function App() {
             description={value.description}
             apelido={value.apelido}
             genero={value.genero}
+            avatar={value.avatar}
           ></Card>
           );
         })
