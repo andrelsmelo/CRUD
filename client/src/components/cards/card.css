@@ -8,7 +8,7 @@
 }
 
 .card--container:hover {
-    background-color: aqua;
+    background-color: rgb(255, 0, 242);
 }
 
 .card--name {

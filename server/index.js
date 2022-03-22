@@ -14,17 +14,17 @@ app.use(cors());
 app.use(express.json());
 
 app.post("/register", (req, res)=> {
-   const { name } = req.body;
-   const { description } = req.body;
-   const { apelido } = req.body;
-   const { cpf } = req.body;
-   const { endereco } = req.body;
-   const { genero } = req.body;
-   const { telefone } = req.body;
+    const { name } = req.body;
+    const { description } = req.body;
+    const { apelido } = req.body;
+    const { cpf } = req.body;
+    const { endereco } = req.body;
+    const { genero } = req.body;
+    const { telefone } = req.body;
 
-   let SQL = "INSERT INTO user ( name, description, apelido, cpf, endereco, genero, telefone ) VALUES ( ?,?,?,?,?,?,? )";
+    let SQL = "INSERT INTO user ( name, description, apelido, cpf, endereco, genero, telefone ) VALUES ( ?,?,?,?,?,?,? )";
 
-   db.query(SQL, [ name, description, apelido, cpf, endereco, genero, telefone], (err, result) => {
+    db.query(SQL, [ name, description, apelido, cpf, endereco, genero, telefone], (err, result) => {
        if(err) console.log(err);
        else res.send(result);
    });
