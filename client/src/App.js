@@ -7,7 +7,6 @@ function App() {
   const [values, setValues] = useState();
   const [listUsers, setListUsers] = useState();
 
-  console.log(listUsers);
 
   const handleChangeValues = (value) => {
     setValues(prevValue=>({
@@ -17,7 +16,7 @@ function App() {
   }
 
   const handleClickButton = () => {
-    Axios.post("http://localhost:3001/register", {
+    Axios.post("http://localhost:3001/user", {
       name: values.name,
       description: values.description,
       apelido: values.apelido,
@@ -44,7 +43,7 @@ function App() {
   };
 
   useEffect(() => {
-    Axios.get("http://localhost:3001/getUsers").then((response) => {
+    Axios.get("http://localhost:3001/users").then((response) => {
       setListUsers(response.data);
     });
   }, []);
@@ -116,24 +115,28 @@ function App() {
             Cadastrar
           </button>
       </div>
-      {console.log(listUsers)}
+      <br />
+      <br />
       {typeof listUsers !== "undefined" &&
         listUsers.map((value) => {
           return (
-          <Card
-            key={value.user_id}
-            listCard={listUsers}
-            setListCard={setListUsers}
-            user_id={value.user_id}
-            name={value.name}
-            cpf={value.cpf}
-            endereco={value.endereco}
-            telefone={value.telefone}
-            description={value.description}
-            apelido={value.apelido}
-            genero={value.genero}
-            avatar={value.avatar}
-          ></Card>
+          <>
+            <Card
+              key={value.user_id}
+              listCard={listUsers}
+              setListCard={setListUsers}
+              user_id={value.user_id}
+              name={value.name}
+              cpf={value.cpf}
+              endereco={value.endereco}
+              telefone={value.telefone}
+              description={value.description}
+              apelido={value.apelido}
+              genero={value.genero}
+              avatar={value.avatar} >
+            </Card>
+            <br />
+          </>
           );
         })
 

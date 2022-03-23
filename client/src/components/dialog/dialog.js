@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
 import Dialog from "@material-ui/core/Dialog";
@@ -6,22 +6,24 @@ import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import Axios from "axios";
-import produce from "immer";
-// import { Avatar } from "@material-ui/core";
 import Avatar from 'react-avatar';
 
 export default function FormDialog(props) {
-  const [editValues, setEditValues] = useState({
-    user_id: props.user_id,
-    name: props.name,
-    description: props.description,
-    apelido: props.apelido,
-    cpf: props.cpf,
-    endereco: props.endereco,
-    genero: props.genero,
-    telefone: props.telefone,
-    avatar: props.avatar,
-  });
+  const [editValues, setEditValues] = useState({});
+  
+  useEffect(() => {
+    setEditValues({
+      user_id: props.user_id,
+      name: props.name,
+      description: props.description,
+      apelido: props.apelido,
+      cpf: props.cpf,
+      endereco: props.endereco,
+      genero: props.genero,
+      telefone: props.telefone,
+      avatar: props.avatar,
+    })
+  }, [props.user_id, props.name, props.description, props.apelido, props.cpf, props.endereco, props.genero, props.telefone, props.avatar]);
 
   const handleChangeValues = (value) => {
     setEditValues((prevValues) => ({
@@ -35,8 +37,7 @@ export default function FormDialog(props) {
   };
 
   const handleEditUser = () => {
-    Axios.put("http://localhost:3001/edit", {
-      user_id: editValues.user_id,
+    Axios.put(`http://localhost:3001/user/${editValues.user_id}`, {
       name: editValues.name,
       description: editValues.description,
       apelido: editValues.apelido,
@@ -48,7 +49,7 @@ export default function FormDialog(props) {
     }).then(() => {
       props.setListCard(
         props.listCard.map((value) => {
-          return value.user_id == editValues.user_id
+          return value.user_id === editValues.user_id
             ? {
                 user_id: editValues.user_id,
                 name: editValues.name,
@@ -68,10 +69,10 @@ export default function FormDialog(props) {
   };
 
   const handleDeleteUser = () => {
-    Axios.delete(`http://localhost:3001/delete/${editValues.user_id}`).then(() => {
+    Axios.delete(`http://localhost:3001/user/${editValues.user_id}`).then(() => {
       props.setListCard(
         props.listCard.filter((value) => {
-          return value.id != editValues.user_id;
+          return value.id !== editValues.user_id;
         })
       );
     });
@@ -87,7 +88,7 @@ export default function FormDialog(props) {
       >
         <DialogTitle id="form-dialog-title">Editar</DialogTitle>
         <DialogContent>
-        <Avatar name={props.name} maxInitials='2' />
+        <Avatar name={props.name} maxInitials={2} />
           <TextField 
             disabled
             margin="dense"
