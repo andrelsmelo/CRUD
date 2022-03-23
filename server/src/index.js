@@ -18,9 +18,9 @@ app.use(express.json());
 app.post("/user", (req, res)=> {
     const { name, description, apelido, cpf, endereco, genero, telefone, avatar } = req.body;
 
-    let SQL = "INSERT INTO user ( name, description, apelido, cpf, endereco, genero, telefone, avatar ) VALUES ( ?,?,?,?,?,?,? )";
+    let SQL = "INSERT INTO user ( name, description, apelido, cpf, endereco, genero, telefone ) VALUES ( ?,?,?,?,?,?,? )";
 
-    db.query(SQL, [ name, description, apelido, cpf, endereco, genero, telefone, avatar], (err, result) => {
+    db.query(SQL, [ name, description, apelido, cpf, endereco, genero, telefone ], (err, result) => {
        if(err) {
             console.log(err);
             return res.status(400).json({ message: 'Erro ao listar um usuario'});
@@ -31,7 +31,7 @@ app.post("/user", (req, res)=> {
 
 app.get("/users", (req, res) => {
     
-    let SQL = "SELECT * from user";
+    let SQL = "SELECT * from user order by user_id desc";
 
     db.query(SQL, (err, result) => {
         if(err) {
@@ -43,11 +43,10 @@ app.get("/users", (req, res) => {
 });
 
 app.put("/user/:user_id", (req, res) => {
-    const { user_id } = req.body;
+    const { user_id } = req.params;
     const { name, description, apelido, cpf, endereco, genero, telefone, avatar } = req.body;
 
     let SQL = "UPDATE user SET name = ?, description = ? , apelido = ? , cpf = ? , endereco = ? , genero = ? , telefone = ?, updatedAt = ?, avatar = ? WHERE user_id = ?";
-
     db.query(SQL, [name, description, apelido, cpf, endereco, genero, telefone,new Date(), avatar, user_id], (err, result) => {
         if(err) {
             console.log(err);
